@@ -13,6 +13,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./env.d.ts"
 	},
 	"dependencies": {
+		"@google/genai": "^1.0.0",
 		"hono": "^4.7.10",
 		"next": "15.3.2",
 		"react": "^19.0.0",
