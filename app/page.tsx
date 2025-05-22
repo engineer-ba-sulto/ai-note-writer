@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { GeneratedArticle } from "@/types/generated-article";
 import { Copy, Loader2, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { startGeneratedArticle } from "./action";
 
 export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -18,13 +20,8 @@ export default function Home() {
     sectionCount: "4",
   });
 
-  const [generatedArticle, setGeneratedArticle] = useState<{
-    title: string;
-    introduction: string;
-    sections: { sectionTitle: string; sectionContent: string }[];
-    conclusion: string;
-    hashtags: string[];
-  } | null>(null);
+  const [generatedArticle, setGeneratedArticle] =
+    useState<GeneratedArticle | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,41 +43,14 @@ export default function Home() {
 
     // Simulate API call to AI service
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const data = await startGeneratedArticle({
+        theme: formData.theme,
+        targetAudience: formData.targetAudience,
+        toneAndManner: formData.toneAndManner,
+        sectionCount: Number(formData.sectionCount),
+      });
 
-      // Mock generated article
-      const mockArticle = {
-        title: `${formData.theme}に関する完全ガイド`,
-        introduction: `${formData.theme}は現代社会において非常に重要なトピックです。${formData.targetAudience}にとって、この知識は今後のキャリアや学習において大きな価値をもたらすでしょう。この記事では、${formData.theme}の基本から応用まで、わかりやすく解説していきます。`,
-        sections: [
-          {
-            sectionTitle: `${formData.theme}の基本概念`,
-            sectionContent: `${formData.theme}を理解するためには、まず基本的な概念を押さえておく必要があります。この分野は日々進化していますが、核となる原理は変わりません。\n\n基本的には、データの収集、分析、そして実装という3つのステップが重要です。特に${formData.targetAudience}の方々は、この基本的なワークフローを理解することで、より効率的に学習を進めることができるでしょう。`,
-          },
-          {
-            sectionTitle: `${formData.theme}の実践的な活用方法`,
-            sectionContent: `理論を理解したら、次は実践です。${formData.theme}を実際のプロジェクトに活用する方法はいくつかあります。\n\n1. 小規模なプロジェクトから始める\n2. オープンソースのツールを活用する\n3. コミュニティに参加して知見を共有する\n\nこれらのステップを踏むことで、${formData.targetAudience}の方々も無理なく技術を習得できるでしょう。`,
-          },
-          {
-            sectionTitle: `${formData.theme}の最新トレンド`,
-            sectionContent: `${formData.theme}の分野は急速に発展しています。最新のトレンドを把握することは、この分野で活躍するために不可欠です。\n\n現在注目されているのは、自動化技術の進化と、それに伴うワークフローの効率化です。特に${formData.targetAudience}にとっては、これらの新技術を理解することで、将来的なキャリアの可能性が広がるでしょう。`,
-          },
-          {
-            sectionTitle: `${formData.theme}の将来展望`,
-            sectionContent: `${formData.theme}の将来はどうなるのでしょうか？専門家たちは、より直感的なインターフェースと、より高度な自動化が進むと予測しています。\n\n${formData.targetAudience}の皆さんにとっては、今のうちに基礎をしっかり固めておくことで、将来的な変化にも柔軟に対応できるようになるでしょう。継続的な学習と実践が、この分野での成功の鍵となります。`,
-          },
-        ],
-        conclusion: `${formData.theme}は、今後も私たちの生活やビジネスに大きな影響を与え続けるでしょう。この記事で紹介した基本概念や実践方法を活用して、${formData.targetAudience}の皆さんも${formData.theme}の世界に一歩踏み出してみてください。新たな可能性が広がっているはずです。`,
-        hashtags: [
-          `#${formData.theme}`,
-          "#テクノロジー",
-          "#イノベーション",
-          "#学習",
-          "#キャリア",
-        ],
-      };
-
-      setGeneratedArticle(mockArticle);
+      setGeneratedArticle(data as GeneratedArticle);
       setStatusMessage("記事が正常に生成されました！");
       toast.success("記事が正常に生成されました！");
     } catch (error: unknown) {
@@ -95,23 +65,19 @@ export default function Home() {
   const copyToClipboard = () => {
     if (!generatedArticle) return;
 
-    const markdownContent = `# ${generatedArticle.title}
+    const markdownContent = `${generatedArticle.title}
 
 ${generatedArticle.introduction}
 
-## ${generatedArticle.sections[0].sectionTitle}
-${generatedArticle.sections[0].sectionContent}
+${generatedArticle.sections
+  .map(
+    (section) => `${section.sectionTitle}
+${section.sectionContent}
+`
+  )
+  .join("\n")}
 
-## ${generatedArticle.sections[1].sectionTitle}
-${generatedArticle.sections[1].sectionContent}
-
-## ${generatedArticle.sections[2].sectionTitle}
-${generatedArticle.sections[2].sectionContent}
-
-## ${generatedArticle.sections[3].sectionTitle}
-${generatedArticle.sections[3].sectionContent}
-
-## まとめ
+まとめ
 ${generatedArticle.conclusion}
 
 ${generatedArticle.hashtags.join(" ")}
@@ -260,20 +226,20 @@ ${generatedArticle.hashtags.join(" ")}
                       {generatedArticle.introduction}
                     </div>
 
-                    <h3 className="text-xl font-semibold mt-6">本文</h3>
+                    {/* <h3 className="text-xl font-semibold mt-6">本文</h3> */}
 
                     {generatedArticle.sections.map((section, index) => (
                       <div key={index} className="mt-4">
-                        <h4 className="text-lg font-medium">
+                        {/* <h4 className="text-lg font-medium">
                           {section.sectionTitle}
-                        </h4>
+                        </h4> */}
                         <div className="whitespace-pre-wrap mt-2">
                           {section.sectionContent}
                         </div>
                       </div>
                     ))}
 
-                    <h3 className="text-xl font-semibold mt-6">まとめ</h3>
+                    {/* <h3 className="text-xl font-semibold mt-6">まとめ</h3> */}
                     <div className="whitespace-pre-wrap">
                       {generatedArticle.conclusion}
                     </div>
@@ -303,19 +269,12 @@ ${generatedArticle.hashtags.join(" ")}
 
 ${generatedArticle.introduction}
 
-## ${generatedArticle.sections[0].sectionTitle}
-${generatedArticle.sections[0].sectionContent}
+${generatedArticle.sections
+  .map(
+    (section) => `${section.sectionContent}`
+  )
+  .join("\n")}
 
-## ${generatedArticle.sections[1].sectionTitle}
-${generatedArticle.sections[1].sectionContent}
-
-## ${generatedArticle.sections[2].sectionTitle}
-${generatedArticle.sections[2].sectionContent}
-
-	## ${generatedArticle.sections[3].sectionTitle}
-${generatedArticle.sections[3].sectionContent}
-
-## まとめ
 ${generatedArticle.conclusion}
 
 ${generatedArticle.hashtags.join(" ")}`}

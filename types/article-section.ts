@@ -1,4 +1,4 @@
 export type ArticleSection = {
   sectionTitle: string;
-  sectionBody: string;
+  sectionContent: string;
 };

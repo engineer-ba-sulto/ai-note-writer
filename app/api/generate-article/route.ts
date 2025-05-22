@@ -1,10 +1,10 @@
 import { GeneratedArticle } from "@/types/generated-article";
 import { RequestBody } from "@/types/request-body";
 import {
-  GoogleGenAI,
-  HarmBlockThreshold,
-  HarmCategory,
-  Type,
+	GoogleGenAI,
+	HarmBlockThreshold,
+	HarmCategory,
+	Type,
 } from "@google/genai";
 
 export const runtime = "edge";
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
   }
   try {
     const body = await request.json<RequestBody>();
-    const { theme, targetAudience, toneAndManner, numSections = 3 } = body;
+    const { theme, targetAudience, toneAndManner, sectionCount = 3 } = body;
 
     if (!theme || !targetAudience || !toneAndManner) {
       return Response.json(
@@ -77,13 +77,13 @@ export async function POST(request: Request) {
     }
 
     console.log(
-      `Hono API: Geminiフル記事生成リクエスト: テーマ="${theme}", 読者="${targetAudience}", トーン="${toneAndManner}", セクション数目安=${numSections}`
+      `Geminiフル記事生成リクエスト: テーマ="${theme}", 読者="${targetAudience}", トーン="${toneAndManner}", セクション数=${sectionCount}`
     );
 
     // ステップ1: 記事全体の骨子と各セクションのタイトルをAIに考えさせる (Gemini Tool use)
     const outlineTool = {
       name: "generate_article_outline_v2", // ツール名はAPI内でユニークであればOK
-      description: `与えられたテーマ、ターゲット読者、トーン＆マナーに基づいて、note記事の骨子（記事タイトル、導入部の主要テーマ、${numSections}個の本文セクションタイトル、まとめの主要テーマ）を提案します。`,
+      description: `与えられたテーマ、ターゲット読者、トーン＆マナーに基づいて、note記事の骨子（記事タイトル、導入部の主要テーマ、${sectionCount}個の本文セクションタイトル、まとめの主要テーマ）を提案します。`,
       parameters: {
         type: Type.OBJECT,
         properties: {
@@ -97,7 +97,7 @@ export async function POST(request: Request) {
           },
           sectionTitles: {
             type: Type.ARRAY,
-            description: `本文の${numSections}個のセクションタイトル。`,
+            description: `本文の${sectionCount}個のセクションタイトル。`,
             items: { type: Type.STRING },
           },
           conclusionTheme: {
@@ -113,7 +113,13 @@ export async function POST(request: Request) {
         ],
       },
     };
-    const outlinePromptForToolUse = `提供された情報に基づいて、読者が魅力を感じ、最後まで読み進めたくなるようなnote記事の骨子を考案してください。特に、ターゲット読者とトーン＆マナーを強く意識した提案をお願いします。必ず、指定された '${outlineTool.name}' ツールを使用して、提案された骨子を返してください。\n\n記事のテーマ: ${theme}\nターゲット読者: ${targetAudience}\nトーン＆マナー: ${toneAndManner}\n期待する本文セクション数: ${numSections}`;
+		const outlinePromptForToolUse = `提供された情報に基づいて、読者が魅力を感じ、最後まで読み進めたくなるようなnote記事の骨子を考案してください。
+		特に、ターゲット読者とトーン＆マナーを強く意識した提案をお願いします。
+		必ず、指定された '${outlineTool.name}' ツールを使用して、提案された骨子を返してください。\n\n
+		記事のテーマ: ${theme}\n
+		ターゲット読者: ${targetAudience}\n
+		トーン＆マナー: ${toneAndManner}\n
+		期待する本文セクション数: ${sectionCount}`;
     const config = {
       tools: [{ functionDeclarations: [outlineTool] }],
     };
@@ -191,9 +197,9 @@ export async function POST(request: Request) {
         "AIが返した骨子のデータ構造が不正です。必要なフィールドが不足しているか、形式が間違っています。"
       );
     }
-    if (parsedOutline.sectionTitles.length !== numSections) {
+    if (parsedOutline.sectionTitles.length !== sectionCount) {
       console.warn(
-        `AIが提案したセクション数 (${parsedOutline.sectionTitles.length}) が期待 (${numSections}) と異なります。AIの提案を優先します。`
+        `AIが提案したセクション数 (${parsedOutline.sectionTitles.length}) が期待 (${sectionCount}) と異なります。AIの提案を優先します。`
       );
     }
 
@@ -210,10 +216,16 @@ export async function POST(request: Request) {
       hashtags: [],
     };
 
-    const commonSystemInstructionForParts = `あなたはプロのnoteライターです。与えられた指示に従い、読者にとって魅力的で分かりやすい文章を作成してください。ターゲット読者: 「${targetAudience}」、全体のトーン＆マナー: 「${toneAndManner}」を常に意識してください。`;
+		const commonSystemInstructionForParts = `あなたはプロのnoteライターです。与えられた指示に従い、読者にとって魅力的で分かりやすい文章を作成してください。
+		ターゲット読者: 「${targetAudience}」、全体のトーン＆マナー: 「${toneAndManner}」を常に意識してください。`;
 
     // ステップ2: 導入部を生成
-    const introPrompt = `以下の情報に基づいて、読者が記事を読み進めたくなるような魅力的な導入文を作成してください。\n記事タイトル: ${articleTitle}\nこの記事全体の主要テーマ: ${theme}\n導入部で焦点を当てるべき内容・方向性: ${introductionTheme}\n期待する文字数: 300～400字程度\n\n導入文:`;
+		const introPrompt = `以下の情報に基づいて、読者が記事を読み進めたくなるような魅力的な導入文を作成してください。\n
+		記事タイトル: ${articleTitle}\n
+		この記事全体の主要テーマ: ${theme}\n
+		導入部で焦点を当てるべき内容・方向性: ${introductionTheme}\n
+		期待する文字数: 300～400字程度\n\n
+		導入文:`;
     generatedArticle.introduction =
       (
         await ai.models.generateContent({
@@ -227,7 +239,13 @@ export async function POST(request: Request) {
 
     // ステップ3: 各本文セクションを生成
     for (const currentSectionTitle of sectionTitles) {
-      const sectionPrompt = `以下の情報に基づいて、note記事の本文セクションを作成してください。\nこのセクションのタイトル: ${currentSectionTitle}\n記事全体の主要テーマ: ${theme}\n記事全体のタイトル: ${articleTitle}\nこのセクションで読者に伝えるべき主要な情報やアイデアを具体的に記述してください。\n期待する文字数: 各セクション600～1000字程度\n\n本文:`;
+			const sectionPrompt = `以下の情報に基づいて、note記事の本文セクションを作成してください。\n
+			このセクションのタイトル: ${currentSectionTitle}\n
+			記事全体の主要テーマ: ${theme}\n
+			記事全体のタイトル: ${articleTitle}\n
+			このセクションで読者に伝えるべき主要な情報やアイデアを具体的に記述してください。\n
+			期待する文字数: 各セクション600～1000字程度\n\n
+			本文:`;
       const sectionBody =
         (
           await ai.models.generateContent({
@@ -241,7 +259,7 @@ export async function POST(request: Request) {
         `セクション「${currentSectionTitle}」の本文生成に失敗しました。`;
       generatedArticle.sections.push({
         sectionTitle: currentSectionTitle,
-        sectionBody,
+        sectionContent: sectionBody,
       });
     }
 
@@ -253,7 +271,13 @@ export async function POST(request: Request) {
           `本文セクション${i + 1}「${st}」では、関連する内容を解説しました。`
       )
       .join("\n");
-    const conclusionPrompt = `以下の情報と、これまでの記事の流れを踏まえて、読者に記事全体の重要なポイントを再確認させ、行動を促すような力強いまとめを作成してください。\n${contextForConclusion}\nまとめ部分で焦点を当てるべき内容・方向性: ${conclusionTheme}\n記事全体の主要テーマ: ${theme}\n期待する文字数: 300字程度\n\nまとめ:`;
+		const conclusionPrompt = `
+		以下の情報と、これまでの記事の流れを踏まえて、読者に記事全体の重要なポイントを再確認させ、行動を促すような力強いまとめを作成してください。\n
+		${contextForConclusion}\n
+		まとめ部分で焦点を当てるべき内容・方向性: ${conclusionTheme}\n
+		記事全体の主要テーマ: ${theme}\n
+		期待する文字数: 300字程度\n\n
+		まとめ:`;
     generatedArticle.conclusion =
       (
         await ai.models.generateContent({
@@ -277,12 +301,17 @@ export async function POST(request: Request) {
       articleTitle,
       generatedArticle.introduction,
       ...generatedArticle.sections.map(
-        (s) => `${s.sectionTitle}\n${s.sectionBody}`
+        (s) => `${s.sectionTitle}\n${s.sectionContent}`
       ),
       generatedArticle.conclusion,
     ].join("\n\n");
     const hashtagSystemInstruction = `あなたはnoteのSEOとトレンドに詳しい専門家です。記事内容に基づいて最適なハッシュタグを提案してください。`;
-    const hashtagPrompt = `以下の記事内容に基づいて、noteで読者に発見されやすく、記事のテーマ性を的確に表すハッシュタグを5つ提案してください。各ハッシュタグは「#」から始めて、スペースやカンマ区切りでリストアップしてください。\n\n記事内容の要約 (記事が長すぎる場合は、AIが要点を把握していると仮定して省略可):\n---\n${fullArticleTextForHashtags.substring(
+		const hashtagPrompt = `以下の記事内容に基づいて、noteで読者に発見されやすく、記事のテーマ性を的確に表すハッシュタグを5つ提案してください。
+		各ハッシュタグは「#」から始めて、スペースやカンマ区切りでリストアップしてください。
+		各ハッシュタグのみ出力してください\n\n
+		記事内容の要約 (記事が長すぎる場合は、AIが要点を把握していると仮定して省略可):\n
+		---\n
+		${fullArticleTextForHashtags.substring(
       0,
       4000
     )}\n---\n\n提案ハッシュタグ:`;
