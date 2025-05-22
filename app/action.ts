@@ -1,5 +1,3 @@
-"use server";
-
 export async function startGeneratedArticle({
   theme,
   targetAudience,
@@ -11,8 +9,11 @@ export async function startGeneratedArticle({
   toneAndManner: string;
   sectionCount: number;
 }) {
-  const response = await fetch("http://localhost:3000/api/generate-article", {
+  const response = await fetch("/api/generate-article", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       theme,
       targetAudience,
