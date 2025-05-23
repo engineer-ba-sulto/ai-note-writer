@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,6 +32,8 @@ export default function Home() {
 
   const [generatedArticle, setGeneratedArticle] =
     useState<GeneratedArticle | null>(null);
+
+  const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -106,6 +118,10 @@ ${generatedArticle.hashtags.join(" ")}
     });
     setGeneratedArticle(null);
     setStatusMessage("");
+  };
+
+  const handleResetClick = () => {
+    setIsResetDialogOpen(true);
   };
 
   return (
@@ -307,7 +323,11 @@ ${generatedArticle.hashtags.join(" ")}`}
                 記事全体をクリップボードにコピー (Markdown)
               </Button>
 
-              <Button variant="outline" className="flex-1" onClick={resetForm}>
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={handleResetClick}
+              >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 リセット/クリア
               </Button>
@@ -315,6 +335,24 @@ ${generatedArticle.hashtags.join(" ")}`}
           </div>
         </div>
       </div>
+
+      {/* Reset Confirmation Dialog */}
+      <AlertDialog open={isResetDialogOpen} onOpenChange={setIsResetDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>リセット確認</AlertDialogTitle>
+            <AlertDialogDescription>
+              入力した情報と生成された記事がすべて消去されます。よろしいですか？
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>キャンセル</AlertDialogCancel>
+            <AlertDialogAction onClick={resetForm}>
+              リセットする
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </main>
   );
 }
