@@ -18,7 +18,7 @@ import { GeneratedArticle } from "@/types/generated-article";
 import { Copy, Loader2, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { startGeneratedArticle } from "./action";
+import { startGeneratedArticle } from "../action";
 
 export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
