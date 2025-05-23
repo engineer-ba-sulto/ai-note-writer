@@ -1,3 +1,4 @@
+import GoogleAdsense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Toaster />
         {children}
       </body>
+      <GoogleAdsense pId={process.env.PID!} />
     </html>
   );
 }
