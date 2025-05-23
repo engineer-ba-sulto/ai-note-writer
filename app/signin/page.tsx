@@ -1,34 +1,16 @@
-import { signIn } from "@/auth";
 import { Button } from "@/components/ui/button";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import Link from "next/link";
+import { SignOut } from "../(main)/_components/auth/signout-button";
+import { LoginForm } from "./_components/signin-form";
 
-export const runtime = "edge";
-
-export default function page() {
+export default function LoginPage() {
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-2">
-      <form
-        action={async () => {
-          "use server";
-          await signIn("github", { redirectTo: "/generators" });
-        }}
-      >
-        <Button type="submit" variant={"outline"} className="gap-2">
-          <FaGithub size={20} />
-          Sign in
-        </Button>
-      </form>
-      <form
-        action={async () => {
-          "use server";
-          await signIn("google", { redirectTo: "/generators" });
-        }}
-      >
-        <Button type="submit" variant={"outline"} className="gap-2">
-          <FaGoogle size={20} />
-          Sign in
-        </Button>
-      </form>
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+      <LoginForm />
+      <SignOut />
+      <Button asChild>
+        <Link href="/">TOPページに戻る</Link>
+      </Button>
     </div>
   );
 }
