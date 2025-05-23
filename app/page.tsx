@@ -37,6 +37,16 @@ export default function Home() {
       toast.error("記事のテーマを入力してください。");
       return;
     }
+    if (!formData.targetAudience.trim()) {
+      setStatusMessage("ターゲット読者を入力してください。");
+      toast.error("ターゲット読者を入力してください。");
+      return;
+    }
+    if (!formData.toneAndManner.trim()) {
+      setStatusMessage("トーン＆マナーを入力してください。");
+      toast.error("トーン＆マナーを入力してください。");
+      return;
+    }
 
     setIsGenerating(true);
     setStatusMessage("記事を生成中です...");
@@ -270,9 +280,7 @@ ${generatedArticle.hashtags.join(" ")}
 ${generatedArticle.introduction}
 
 ${generatedArticle.sections
-  .map(
-    (section) => `${section.sectionContent}`
-  )
+  .map((section) => `${section.sectionContent}`)
   .join("\n")}
 
 ${generatedArticle.conclusion}
