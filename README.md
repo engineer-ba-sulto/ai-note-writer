@@ -21,13 +21,13 @@ Noto記事を生成するアプリです
 
 ### テスト
 
-developブランチでデプロイ
-https://develop.ai-note-writer.pages.dev/
+- developブランチでデプロイ
+- URL：https://develop.ai-note-writer.pages.dev/
 
 ### 本番
 
-mainブランチでデプロイ
-https://ai-note-writer.pages.dev/
+- mainブランチでデプロイ
+- URL：https://ai-note-writer.pages.dev/
 
 ## データベース
 
@@ -36,6 +36,8 @@ https://ai-note-writer.pages.dev/
 - ai-note-writer-db
 
 ### テーブル一覧
+
+#### NextAuth関連
 
 - account
 - authenticator
