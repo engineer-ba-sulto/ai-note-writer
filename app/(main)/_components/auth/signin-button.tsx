@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 
 export default function SignIn({
@@ -10,8 +11,11 @@ export default function SignIn({
   oauth: string;
 }) {
   return (
-    <button onClick={() => signIn(oauth, { redirectTo: "/generators" })}>
+    <Button
+      onClick={() => signIn(oauth, { redirectTo: "/generators" })}
+      variant="outline"
+    >
       {children}
-    </button>
+    </Button>
   );
 }
