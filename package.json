@@ -13,6 +13,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./env.d.ts"
 	},
 	"dependencies": {
+		"@auth/drizzle-adapter": "^1.9.1",
 		"@google/genai": "^1.0.0",
 		"@radix-ui/react-alert-dialog": "^1.1.14",
 		"@radix-ui/react-label": "^2.1.7",
@@ -20,6 +21,8 @@
 		"@radix-ui/react-tabs": "^1.1.12",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
+		"drizzle-kit": "^0.31.1",
+		"drizzle-orm": "^0.43.1",
 		"hono": "^4.7.10",
 		"lucide-react": "^0.511.0",
 		"next": "15.3.2",
