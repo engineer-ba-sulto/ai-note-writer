@@ -2,8 +2,8 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import { safeGetDb } from "./db/db";
-import { accounts, sessions, users, verificationTokens } from "./db/schema";
+import { safeGetDb } from "./drizzle/db";
+import { accounts, sessions, users, verificationTokens } from "./drizzle/schema";
 
 const createConfig = () => {
   const db = safeGetDb();
