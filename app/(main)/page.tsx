@@ -218,6 +218,10 @@ export default function TopPage() {
                     <span className="text-green-500 mr-2">✓</span>
                     3〜5セクション構成
                   </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    優先メールサポート
+                  </li>
                 </ul>
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6">
                   プロプランを選ぶ
