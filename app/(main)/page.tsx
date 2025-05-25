@@ -1,5 +1,12 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { faqText } from "@/contants/faq-text";
 import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
@@ -195,8 +202,9 @@ export default function TopPage() {
                 <div className="text-4xl font-bold text-blue-600 mb-4">
                   <div>
                     <span>¥490</span>
-                    <span className="text-lg text-gray-600">/月(先着100名)
-										</span>
+                    <span className="text-lg text-gray-600">
+                      /月(先着100名)
+                    </span>
                   </div>
                   <span className="line-through">¥980</span>
                   <span className="text-lg text-gray-600">/月</span>
@@ -232,79 +240,18 @@ export default function TopPage() {
             </p>
           </div>
 
-          <div className="space-y-8">
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. 生成された記事の品質はどの程度ですか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  最新のAI技術を使用して、プロのライターが書いたような高品質な記事を生成します。ターゲット読者に合わせた文体やトーンで、読みやすく魅力的な内容を提供します。
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. 生成した記事は商用利用できますか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  はい、生成された記事は完全にあなたのものとなり、商用利用も可能です。noteでの投稿、ブログ記事、マーケティング資料など、自由にご活用いただけます。
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. 無料プランから有料プランへの変更はいつでもできますか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  はい、いつでもプランの変更が可能です。アップグレードは即座に反映され、ダウングレードは次回請求サイクルから適用されます。
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. 記事の内容が気に入らない場合、再生成できますか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  はい、何度でも再生成が可能です。テーマやターゲット設定を調整して、理想的な記事が完成するまでお試しいただけます。
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. サポートはどのように受けられますか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  メールサポートを提供しており、プロプラン以上では優先サポートをご利用いただけます。ビジネスプランでは専用サポートチームが対応いたします。
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  Q. 解約はいつでもできますか？
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  A.
-                  はい、いつでも解約可能です。解約手続きは管理画面から簡単に行え、解約後も現在の請求期間終了まではサービスをご利用いただけます。
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <Accordion type="single" collapsible className="w-full">
+            {faqText.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index + 1}`}>
+                <AccordionTrigger className="text-xl font-bold text-gray-900 hover:no-underline">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 leading-relaxed text-base">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
