@@ -116,7 +116,7 @@ export default function TopPage() {
                 <span className="text-3xl">⚡</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">高速生成</h3>
-              <p className="text-blue-100">数秒で記事が完成</p>
+              <p className="text-blue-100">1分で記事が完成</p>
             </div>
 
             <div className="text-center">
