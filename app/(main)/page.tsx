@@ -1,5 +1,12 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { faqText } from "@/contants/faq-text";
 import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
@@ -20,13 +27,11 @@ export default function TopPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
-              <span className="text-blue-600 font-semibold">
-                1分記事作成AI
-              </span>
+              <span className="text-blue-600 font-semibold">1分記事作成AI</span>
               で創作の新時代を体験しよう。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <SigninButton>記事を作成する</SigninButton>
+              <SigninButton>無料で始める</SigninButton>
               <Button
                 variant="outline"
                 className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xl px-10 py-6 transform hover:scale-105 transition-all duration-200"
@@ -149,6 +154,111 @@ export default function TopPage() {
         </div>
       </section>
 
+      {/* Price Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              シンプルで分かりやすい料金プラン
+            </h2>
+            <p className="text-xl text-gray-600">
+              あなたのニーズに合わせて選べる3つのプラン
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free Plan */}
+            <Card className="relative border-2 border-gray-200 shadow-lg">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  フリー
+                </h3>
+                <div className="text-4xl font-bold text-gray-900 mb-4">
+                  ¥0<span className="text-lg text-gray-600">/月</span>
+                </div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    月5記事まで生成
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    3セクション構成
+                  </li>
+                </ul>
+                <SigninButton className="w-full">無料で始める</SigninButton>
+              </CardContent>
+            </Card>
+
+            {/* Pro Plan */}
+            <Card className="relative border-2 border-blue-500 shadow-xl transform scale-105">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                  おすすめ
+                </span>
+              </div>
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">プロ</h3>
+                <div className="text-4xl font-bold text-blue-600 mb-4">
+                  <div>
+                    <span>¥490</span>
+                    <span className="text-lg text-gray-600">
+                      /月(先着100名)
+                    </span>
+                  </div>
+                  <span className="line-through">¥980</span>
+                  <span className="text-lg text-gray-600">/月</span>
+                </div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    月50記事まで生成
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    3〜5セクション構成
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    優先メールサポート
+                  </li>
+                </ul>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6">
+                  プロプランを選ぶ
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              よくある質問
+            </h2>
+            <p className="text-xl text-gray-600">
+              お客様からよく寄せられる質問にお答えします
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {faqText.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index + 1}`}>
+                <AccordionTrigger className="text-xl font-bold text-gray-900 hover:no-underline">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 leading-relaxed text-base">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -159,7 +269,7 @@ export default function TopPage() {
             アカウント作成は無料。すぐに高品質な記事作成を体験できます。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <SigninButton>記事を作成する</SigninButton>
+            <SigninButton>無料で始める</SigninButton>
           </div>
         </div>
       </section>
