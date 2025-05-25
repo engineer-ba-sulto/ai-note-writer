@@ -129,10 +129,7 @@ ${generatedArticle.hashtags.join(" ")}
   return (
     <main className="min-h-screen bg-white">
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          AI Note Article Generator
-        </h1>
-
+        <h1 className="text-2xl font-bold text-center mb-6">1分記事作成AI</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Column - Control Panel */}
           <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 flex flex-col">
