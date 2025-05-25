@@ -29,7 +29,7 @@ export default function Home() {
     theme: "",
     targetAudience: "",
     toneAndManner: "",
-    sectionCount: "4",
+    sectionCount: "3",
   });
 
   const [generatedArticle, setGeneratedArticle] =
@@ -177,7 +177,7 @@ ${generatedArticle.hashtags.join(" ")}
                 </div>
 
                 <div>
-                  <Label htmlFor="sectionCount">おおよそのセクション数</Label>
+                  <Label htmlFor="sectionCount">セクション数</Label>
                   <select
                     id="sectionCount"
                     name="sectionCount"
