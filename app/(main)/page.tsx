@@ -29,8 +29,7 @@ export default function TopPage() {
               <SigninButton>記事を作成する</SigninButton>
               <Button
                 variant="outline"
-                size="lg"
-                className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xl px-10 py-6 transform hover:scale-105 transition-all duration-200"
               >
                 機能を詳しく見る
               </Button>
