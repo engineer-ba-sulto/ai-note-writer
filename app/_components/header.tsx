@@ -7,7 +7,7 @@ export default async function Header() {
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">
-          <Link href="/">AI Article Generator</Link>
+          <Link href="/">1分記事作成AI</Link>
         </h1>
         <div className="flex items-center gap-4">
           {session ? (

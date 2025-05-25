@@ -11,13 +11,15 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "AI Article Generator",
+  title: "1分記事作成AI",
   description: "記事を生成するアプリです",
   keywords: [
     "note",
     "記事",
-    "生成",
+    "記事作成",
+    "1分",
     "AI",
+    "生成",
     "自動化",
     "クリエイティブ",
     "プロ品質",
