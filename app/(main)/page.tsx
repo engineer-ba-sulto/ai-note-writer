@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import SigninButton from "./_components/signin-button";
 
+export const runtime = "edge";
+
 export default function TopPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
