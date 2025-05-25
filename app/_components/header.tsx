@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
+import UserAvatar from "../(main)/_components/auth/user-avatar";
 
 export default async function Header() {
   const session = await auth();
@@ -11,7 +12,9 @@ export default async function Header() {
         </h1>
         <div className="flex items-center gap-4">
           {session ? (
-            <Link href="/generators">記事を作成する</Link>
+            <>
+              <UserAvatar />
+            </>
           ) : (
             <Link href="/signin">サインイン</Link>
           )}
