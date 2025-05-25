@@ -20,13 +20,11 @@ export default function TopPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
-              <span className="text-blue-600 font-semibold">
-                1分記事作成AI
-              </span>
+              <span className="text-blue-600 font-semibold">1分記事作成AI</span>
               で創作の新時代を体験しよう。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <SigninButton>記事を作成する</SigninButton>
+              <SigninButton>無料で始める</SigninButton>
               <Button
                 variant="outline"
                 className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xl px-10 py-6 transform hover:scale-105 transition-all duration-200"
@@ -149,6 +147,167 @@ export default function TopPage() {
         </div>
       </section>
 
+      {/* Price Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              シンプルで分かりやすい料金プラン
+            </h2>
+            <p className="text-xl text-gray-600">
+              あなたのニーズに合わせて選べる3つのプラン
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Free Plan */}
+            <Card className="relative border-2 border-gray-200 shadow-lg">
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  フリー
+                </h3>
+                <div className="text-4xl font-bold text-gray-900 mb-4">
+                  ¥0<span className="text-lg text-gray-600">/月</span>
+                </div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    月5記事まで生成
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    3セクション構成
+                  </li>
+                </ul>
+                <SigninButton className="w-full">無料で始める</SigninButton>
+              </CardContent>
+            </Card>
+
+            {/* Pro Plan */}
+            <Card className="relative border-2 border-blue-500 shadow-xl transform scale-105">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                  おすすめ
+                </span>
+              </div>
+              <CardContent className="p-8 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">プロ</h3>
+                <div className="text-4xl font-bold text-blue-600 mb-4">
+                  <div>
+                    <span>¥490</span>
+                    <span className="text-lg text-gray-600">/月(先着100名)
+										</span>
+                  </div>
+                  <span className="line-through">¥980</span>
+                  <span className="text-lg text-gray-600">/月</span>
+                </div>
+                <ul className="text-left space-y-3 mb-8">
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    月50記事まで生成
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-green-500 mr-2">✓</span>
+                    3〜5セクション構成
+                  </li>
+                </ul>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6">
+                  プロプランを選ぶ
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              よくある質問
+            </h2>
+            <p className="text-xl text-gray-600">
+              お客様からよく寄せられる質問にお答えします
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. 生成された記事の品質はどの程度ですか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  最新のAI技術を使用して、プロのライターが書いたような高品質な記事を生成します。ターゲット読者に合わせた文体やトーンで、読みやすく魅力的な内容を提供します。
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. 生成した記事は商用利用できますか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  はい、生成された記事は完全にあなたのものとなり、商用利用も可能です。noteでの投稿、ブログ記事、マーケティング資料など、自由にご活用いただけます。
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. 無料プランから有料プランへの変更はいつでもできますか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  はい、いつでもプランの変更が可能です。アップグレードは即座に反映され、ダウングレードは次回請求サイクルから適用されます。
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. 記事の内容が気に入らない場合、再生成できますか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  はい、何度でも再生成が可能です。テーマやターゲット設定を調整して、理想的な記事が完成するまでお試しいただけます。
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. サポートはどのように受けられますか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  メールサポートを提供しており、プロプラン以上では優先サポートをご利用いただけます。ビジネスプランでは専用サポートチームが対応いたします。
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border border-gray-200">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Q. 解約はいつでもできますか？
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A.
+                  はい、いつでも解約可能です。解約手続きは管理画面から簡単に行え、解約後も現在の請求期間終了まではサービスをご利用いただけます。
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -159,7 +318,7 @@ export default function TopPage() {
             アカウント作成は無料。すぐに高品質な記事作成を体験できます。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <SigninButton>記事を作成する</SigninButton>
+            <SigninButton>無料で始める</SigninButton>
           </div>
         </div>
       </section>
