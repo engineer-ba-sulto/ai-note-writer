@@ -24,7 +24,7 @@ export default function TopPage() {
               で創作の新時代を体験しよう。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <SigninButton />
+              <SigninButton>記事を作成する</SigninButton>
               <Button
                 variant="outline"
                 size="lg"
@@ -158,7 +158,7 @@ export default function TopPage() {
             アカウント作成は無料。すぐに高品質な記事作成を体験できます。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <SigninButton />
+            <SigninButton>記事を作成する</SigninButton>
           </div>
         </div>
       </section>
