@@ -2,6 +2,7 @@ import GoogleAdsense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import Header from "./_components/header";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -10,8 +11,19 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "AI Note Article Generator",
-  description: "Noto記事を生成するアプリです",
+  title: "AI Article Generator",
+  description: "記事を生成するアプリです",
+  keywords: [
+    "note",
+    "記事",
+    "生成",
+    "AI",
+    "自動化",
+    "クリエイティブ",
+    "プロ品質",
+    "高クオリティ",
+    "時間節約",
+  ],
 };
 
 export default function RootLayout({
@@ -22,8 +34,9 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${notoSansJP.className} antialiased`}>
-        <Toaster />
+        <Header />
         {children}
+        <Toaster />
       </body>
       <GoogleAdsense pId={process.env.PID!} />
     </html>
