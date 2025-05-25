@@ -21,7 +21,7 @@ export default function TopPage() {
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
               <span className="text-blue-600 font-semibold">
-                AI Article Generator
+                1分記事作成AI
               </span>
               で創作の新時代を体験しよう。
             </p>
@@ -104,7 +104,7 @@ export default function TopPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">
-              なぜAI Article Generatorが選ばれるのか
+              なぜ1分記事作成AIが選ばれるのか
             </h2>
             <p className="text-xl text-blue-100">
               時間を節約し、クオリティの高い記事を継続的に投稿できます
@@ -167,7 +167,7 @@ export default function TopPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">AI Article Generator</h3>
+          <h3 className="text-2xl font-bold mb-4">1分記事作成AI</h3>
           <p className="text-gray-400">
             AIの力で、あなたの創作活動をサポートします
           </p>

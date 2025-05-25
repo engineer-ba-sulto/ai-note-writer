@@ -1,6 +1,7 @@
-# AI Note Article Generator
+# 1分記事作成AI（旧AI Note Article Generator）
 
-Noto記事を生成するアプリです
+- 覚えてもらいやすい名前に変更
+- Noto記事を生成するアプリです
 
 ## 技術スタック
 
