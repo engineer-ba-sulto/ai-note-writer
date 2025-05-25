@@ -8,7 +8,7 @@ export default async function GeneratorsLayout({
 }) {
   const session = await auth();
   if (!session) {
-    redirect("/");
+    redirect("/signin");
   }
 
   return <div className="container mt-4 mx-auto">{children}</div>;
