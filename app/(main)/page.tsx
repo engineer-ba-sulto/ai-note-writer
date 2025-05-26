@@ -27,6 +27,8 @@ export default function TopPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
+              <span className="text-black font-semibold">1日仕事の記事作成が1分で終わります。</span>
+              <br />
               <span className="text-blue-600 font-semibold">1分記事作成AI</span>
               で創作の新時代を体験しよう。
             </p>
@@ -80,7 +82,7 @@ export default function TopPage() {
                   構成を選択
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  3、4、5セクションから記事の構成を選択。
+                  3、4、5セクションから記事の構成を選択（プロプランのみ）。
                   内容に応じて最適な構成を選べます。
                 </p>
               </CardContent>
@@ -273,16 +275,6 @@ export default function TopPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">1分記事作成AI</h3>
-          <p className="text-gray-400">
-            AIの力で、あなたの創作活動をサポートします
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
