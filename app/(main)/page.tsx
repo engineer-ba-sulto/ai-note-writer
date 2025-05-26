@@ -11,7 +11,12 @@ import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
 
-export default function TopPage() {
+export default async function TopPage({ canceled }: { canceled: boolean }) {
+  if (canceled) {
+    console.log(
+      "Order canceled -- continue to shop around and checkout when you’re ready."
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {/* Hero Section */}
@@ -27,7 +32,9 @@ export default function TopPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
-              <span className="text-black font-semibold">1日仕事の記事作成が1分で終わります。</span>
+              <span className="text-black font-semibold">
+                1日仕事の記事作成が1分で終わります。
+              </span>
               <br />
               <span className="text-blue-600 font-semibold">1分記事作成AI</span>
               で創作の新時代を体験しよう。
@@ -164,7 +171,7 @@ export default function TopPage() {
               シンプルで分かりやすい料金プラン
             </h2>
             <p className="text-xl text-gray-600">
-              あなたのニーズに合わせて選べる3つのプラン
+              あなたのニーズに合わせて選べる2つのプラン
             </p>
           </div>
 
@@ -225,9 +232,17 @@ export default function TopPage() {
                     優先メールサポート
                   </li>
                 </ul>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6">
-                  プロプランを選ぶ
-                </Button>
+                <form action="/api/checkout-sessions" method="POST">
+                  <section>
+                    <Button
+                      type="submit"
+                      role="link"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
+                    >
+                      プロプランを選ぶ
+                    </Button>
+                  </section>
+                </form>
               </CardContent>
             </Card>
           </div>
