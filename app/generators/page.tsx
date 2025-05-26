@@ -15,10 +15,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GeneratedArticle } from "@/types/generated-article";
-import { Copy, Loader2, RefreshCw } from "lucide-react";
+import { Copy, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { startGeneratedArticle } from "../action";
+import GenerateButton from "./_components/generate-button";
 
 export const runtime = "edge";
 
@@ -203,20 +204,10 @@ ${generatedArticle.hashtags.join(" ")}
                 2. AIで記事を自動生成
               </h2>
 
-              <Button
+              <GenerateButton
                 onClick={generateArticle}
-                disabled={isGenerating}
-                className="w-full py-6 text-lg font-medium"
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    生成中...
-                  </>
-                ) : (
-                  "記事全体をAIで一括生成する"
-                )}
-              </Button>
+                isGenerating={isGenerating}
+              />
             </div>
 
             {/* Status Display Area */}
