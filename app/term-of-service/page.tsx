@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 p-8">
         <div className="prose prose-blue dark:prose-invert max-w-none">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-            最終更新日: 2025年5月7日
+            最終更新日: 2025年5月26日
           </p>
 
           <section className="mb-8">
@@ -35,7 +35,7 @@ export default function TermsOfServicePage() {
                 「コンテンツ」とは、文章、画像、動画、プログラムその他の情報を指します。
               </li>
               <li>
-                「投稿データ」とは、ユーザーが本サービスに投稿、送信するコンテンツを指します。
+                「出力データ」とは、ユーザーが本サービスで出力した記事を指します。
               </li>
             </ul>
           </section>
