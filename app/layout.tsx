@@ -2,6 +2,7 @@ import GoogleAdsense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import Footer from "./_components/footer";
 import Header from "./_components/header";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
       <body className={`${notoSansJP.className} antialiased`}>
         <Header />
         {children}
+        <Footer />
         <Toaster />
       </body>
       <GoogleAdsense pId={process.env.PID!} />
