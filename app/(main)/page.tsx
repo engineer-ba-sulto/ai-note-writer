@@ -11,7 +11,12 @@ import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
 
-export default async function TopPage({ canceled }: { canceled: boolean }) {
+export default async function TopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ canceled: boolean }>;
+}) {
+  const { canceled } = await searchParams;
   if (canceled) {
     console.log(
       "Order canceled -- continue to shop around and checkout when you’re ready."

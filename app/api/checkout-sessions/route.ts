@@ -2,6 +2,8 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { stripe } from "../../../lib/stripe";
 
+export const runtime = "edge";
+
 export async function POST() {
   const headersList = await headers();
   const origin = headersList.get("origin");
