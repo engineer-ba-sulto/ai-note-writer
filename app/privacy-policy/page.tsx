@@ -1,8 +1,16 @@
+import { Button } from "@/components/ui/button";
+import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="container mx-auto px-4 py-12">
+      <Button variant="outline" className="mb-12">
+        <Link href="/" className="flex items-center gap-2">
+          <ArrowLeftIcon className="w-6 h-6" />
+          戻る
+        </Link>
+      </Button>
       <h1 className="text-3xl text-center font-bold mb-12">
         プライバシーポリシー
       </h1>
