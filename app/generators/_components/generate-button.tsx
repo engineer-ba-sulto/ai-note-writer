@@ -18,7 +18,7 @@ export default function GenerateButton({
     <>
       <Button
         onClick={handleClick}
-        disabled={isGenerating}
+        disabled={isGenerating || clickCount >= 5}
         className="w-full py-6 text-lg font-medium"
       >
         {isGenerating ? (
