@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
   const payload = await req.text();
   const headersList = await headers();
