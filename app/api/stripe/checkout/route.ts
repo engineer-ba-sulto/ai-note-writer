@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { stripe } from "../../../lib/stripe";
+import { stripe } from "../../../../lib/stripe";
 
 export const runtime = "edge";
 
