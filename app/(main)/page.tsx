@@ -237,7 +237,7 @@ export default async function TopPage({
                     優先メールサポート
                   </li>
                 </ul>
-                <form action="/api/checkout-sessions" method="POST">
+                <form action="/api/stripe/checkout" method="POST">
                   <section>
                     <Button
                       type="submit"
