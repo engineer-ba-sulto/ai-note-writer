@@ -18,6 +18,34 @@
 - Cloudflare Pages（デプロイプラットフォーム）
 - Cloudflare D1（データベース）
 
+## 環境変数
+
+### Google AI API
+
+`GEMINI_API_KEY=`
+
+### NextAuth
+
+- `AUTH_SECRET=`
+  - `npx auth secret` を実行して、発行する
+
+### GitHub
+
+- `AUTH_GITHUB_ID=`
+- `AUTH_GITHUB_SECRET=`
+
+### Google
+
+- `AUTH_GOOGLE_ID=`
+- `AUTH_GOOGLE_SECRET=`
+
+### Stripe
+
+- `STRIPE_SECRET_KEY=`
+- `STRIPE_WEBHOOK_SECRET=`
+  - `stripe listen` を実行して、取得する
+- `STRIPE_PAID_PLAN_PRICE_ID=`
+
 ## デプロイ環境
 
 ### テスト
