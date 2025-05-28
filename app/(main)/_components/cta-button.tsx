@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default async function CTAButton({ className }: { className?: string }) {
-  const session = await auth();
+	const session = await auth();
+	// サインインしていない時
   if (!session || !session.user) {
     return (
       <Button
@@ -19,7 +20,8 @@ export default async function CTAButton({ className }: { className?: string }) {
         <Link href="/generators">無料で始める</Link>
       </Button>
     );
-  }
+	}
+	// サインインしている時
   return (
     <Button
       type="submit"
@@ -30,7 +32,7 @@ export default async function CTAButton({ className }: { className?: string }) {
         className
       )}
     >
-      <Link href="/generators">購入済</Link>
+      <Link href="/generators">記事生成する</Link>
     </Button>
   );
 }

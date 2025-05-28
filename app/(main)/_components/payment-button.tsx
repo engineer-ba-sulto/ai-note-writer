@@ -1,23 +1,46 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { getUserProfile } from "@/drizzle/query";
+import Link from "next/link";
 
 export default async function PaymentButton() {
-  const session = await auth();
+	const session = await auth();
+	// サインインしていない時
   if (!session?.user?.id) {
-    return null;
+    return (
+      <Button
+        asChild
+        type="submit"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
+      >
+        <Link href="/generators">サインイン</Link>
+      </Button>
+    );
   }
+  // サインインしている時
   const { stripeCustomerId } = await getUserProfile(session.user.id);
+  // 購入済みの時
+  if (stripeCustomerId) {
+    return (
+      <Button
+        asChild
+        type="submit"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
+      >
+        <Link href="/generators">記事生成する</Link>
+      </Button>
+    );
+  }
+  // 購入していない時
   return (
     <form action="/api/stripe/checkout" method="POST">
       <section>
         <Button
-          disabled={stripeCustomerId ? true : false}
           type="submit"
           role="link"
           className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
         >
-          {stripeCustomerId ? "購入済" : "プランを選ぶ"}
+          プランを選ぶ
         </Button>
       </section>
     </form>
