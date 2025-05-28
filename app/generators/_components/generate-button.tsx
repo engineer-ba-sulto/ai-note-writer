@@ -1,23 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
 
 export default function GenerateButton({
-  onClick,
   isGenerating,
+  clickCount,
+  onGenerateClick,
 }: {
-  onClick: () => void;
   isGenerating: boolean;
+  clickCount: number;
+  onGenerateClick: () => Promise<void>;
 }) {
-  const [clickCount, setClickCount] = useState(0);
-  const handleClick = () => {
-    setClickCount(clickCount + 1);
-    onClick();
-  };
   return (
     <>
       <Button
-        onClick={handleClick}
+        onClick={onGenerateClick}
         disabled={isGenerating || clickCount >= 5}
         className="w-full py-6 text-lg font-medium"
       >

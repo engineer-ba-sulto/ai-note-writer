@@ -26,6 +26,7 @@ export const runtime = "edge";
 export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
+  const [clickCount, setClickCount] = useState(0);
   const [formData, setFormData] = useState({
     theme: "",
     targetAudience: "",
@@ -62,6 +63,8 @@ export default function Home() {
       toast.error("トーン＆マナーを入力してください。");
       return;
     }
+
+    setClickCount((prevCount) => prevCount + 1);
 
     setIsGenerating(true);
     setStatusMessage("記事を生成中です...");
@@ -121,6 +124,7 @@ ${generatedArticle.hashtags.join(" ")}
     });
     setGeneratedArticle(null);
     setStatusMessage("");
+    setClickCount(0);
   };
 
   const handleResetClick = () => {
@@ -205,8 +209,9 @@ ${generatedArticle.hashtags.join(" ")}
               </h2>
 
               <GenerateButton
-                onClick={generateArticle}
+                onGenerateClick={generateArticle}
                 isGenerating={isGenerating}
+                clickCount={clickCount}
               />
             </div>
 
