@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { faqText } from "@/contants/faq-text";
+import PaymentButton from "./_components/payment-button";
 import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
@@ -237,17 +238,7 @@ export default async function TopPage({
                     優先メールサポート
                   </li>
                 </ul>
-                <form action="/api/stripe/checkout" method="POST">
-                  <section>
-                    <Button
-                      type="submit"
-                      role="link"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
-                    >
-                      プロプランを選ぶ
-                    </Button>
-                  </section>
-                </form>
+                <PaymentButton />
               </CardContent>
             </Card>
           </div>
