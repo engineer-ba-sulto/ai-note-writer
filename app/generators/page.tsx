@@ -283,6 +283,7 @@ ${generatedArticle.hashtags.join(" ")}
                 <div>
                   <Label htmlFor="sectionCount">セクション数</Label>
                   <select
+                    disabled={userPlan !== "paid"}
                     id="sectionCount"
                     name="sectionCount"
                     value={formData.sectionCount}
