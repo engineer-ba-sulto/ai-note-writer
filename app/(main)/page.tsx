@@ -7,8 +7,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { faqText } from "@/contants/faq-text";
+import CTAButton from "./_components/cta-button";
 import PaymentButton from "./_components/payment-button";
-import SigninButton from "./_components/signin-button";
 
 export const runtime = "edge";
 
@@ -46,7 +46,7 @@ export default async function TopPage({
               で創作の新時代を体験しよう。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <SigninButton>無料で始める</SigninButton>
+              <CTAButton />
               <Button
                 variant="outline"
                 className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xl px-10 py-6 transform hover:scale-105 transition-all duration-200"
@@ -201,7 +201,7 @@ export default async function TopPage({
                     3セクション構成
                   </li>
                 </ul>
-                <SigninButton className="w-full">無料で始める</SigninButton>
+                <CTAButton className="w-full" />
               </CardContent>
             </Card>
 
@@ -282,7 +282,7 @@ export default async function TopPage({
             アカウント作成は無料。すぐに高品質な記事作成を体験できます。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <SigninButton>無料で始める</SigninButton>
+            <CTAButton />
           </div>
         </div>
       </section>
