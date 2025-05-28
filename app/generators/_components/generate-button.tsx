@@ -3,18 +3,22 @@ import { Loader2 } from "lucide-react";
 
 export default function GenerateButton({
   isGenerating,
-  clickCount,
+  articleGenerationsRemaining,
+  userPlan,
   onGenerateClick,
 }: {
   isGenerating: boolean;
-  clickCount: number;
+  articleGenerationsRemaining: number;
+  userPlan: string;
   onGenerateClick: () => Promise<void>;
 }) {
+  const maxGenerations = userPlan === "paid" ? 50 : 5;
+
   return (
     <>
       <Button
         onClick={onGenerateClick}
-        disabled={isGenerating || clickCount >= 5}
+        disabled={isGenerating || articleGenerationsRemaining <= 0}
         className="w-full py-6 text-lg font-medium"
       >
         {isGenerating ? (
@@ -27,7 +31,7 @@ export default function GenerateButton({
         )}
       </Button>
       <p className="text-end text-gray-500 dark:text-gray-400">
-        生成回数: {clickCount}/5
+        生成回数：残{articleGenerationsRemaining}/{maxGenerations}回
       </p>
     </>
   );
