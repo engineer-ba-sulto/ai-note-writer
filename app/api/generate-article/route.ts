@@ -1,11 +1,16 @@
+import { auth } from "@/auth";
+import { userProfiles } from "@/drizzle/schema";
 import { GeneratedArticle } from "@/types/generated-article";
 import { RequestBody } from "@/types/request-body";
+import { getRequestContext } from "@cloudflare/next-on-pages";
 import {
   GoogleGenAI,
   HarmBlockThreshold,
   HarmCategory,
   Type,
 } from "@google/genai";
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/d1";
 
 export const runtime = "edge";
 
@@ -41,21 +46,45 @@ const safetySettings = [
 
 export async function GET() {
   try {
-    const ai = new GoogleGenAI({ apiKey: apiKey });
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: "こんにちは",
-    });
-    const result = { message: response.text };
+    const session = await auth();
+    if (!session?.user?.id) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const userId = session.user.id;
 
-    return Response.json(result);
+    const { env } = getRequestContext();
+    const db = drizzle(env.DB);
+
+    const profile = await db
+      .select({
+        articleGenerationsRemaining: userProfiles.articleGenerationsRemaining,
+        plan: userProfiles.plan,
+      })
+      .from(userProfiles)
+      .where(eq(userProfiles.userId, userId))
+      .limit(1);
+
+    if (!profile || profile.length === 0) {
+      return Response.json(
+        { error: "User profile not found" },
+        { status: 404 }
+      );
+    }
+
+    const userProfile = profile[0];
+    return Response.json(userProfile);
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error fetching user profile:", error);
     return Response.json({ error: (error as Error).message }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const userId = session.user.id;
   if (!apiKey) {
     return Response.json(
       { error: "サーバー設定エラー: APIキーが利用できません。" },
@@ -63,6 +92,26 @@ export async function POST(request: Request) {
     );
   }
   try {
+    const { env } = getRequestContext();
+    const db = drizzle(env.DB);
+    const profile = await db
+      .select()
+      .from(userProfiles)
+      .where(eq(userProfiles.userId, userId));
+    if (!profile) {
+      return Response.json(
+        { error: "User profile not found" },
+        { status: 404 }
+      );
+    }
+    if (profile[0].articleGenerationsRemaining <= 0) {
+      return Response.json(
+        {
+          error: "No article generations remaining. Please upgrade your plan.",
+        },
+        { status: 403 }
+      );
+    }
     const body = await request.json<RequestBody>();
     const { theme, targetAudience, toneAndManner, sectionCount = 3 } = body;
 
@@ -336,7 +385,21 @@ export async function POST(request: Request) {
       console.warn("ハッシュタグの生成に失敗しました。");
     }
 
-    return Response.json(generatedArticle);
+    await db
+      .update(userProfiles)
+      .set({
+        articleGenerationsRemaining: profile[0].articleGenerationsRemaining - 1,
+      })
+      .where(eq(userProfiles.userId, userId));
+
+    // generatedArticleだけでなく、articleGenerationsRemainingとplanも一緒に返す
+    return Response.json({
+      generatedArticle: generatedArticle,
+      userProfile: {
+        articleGenerationsRemaining: profile[0].articleGenerationsRemaining - 1, // 更新後の残数
+        plan: profile[0].plan, // userProfilesスキーマにplanフィールドがあることを想定
+      },
+    });
   } catch (error: unknown) {
     const apiError = error as Error;
     console.error("Hono APIルートでの致命的エラー:", apiError);

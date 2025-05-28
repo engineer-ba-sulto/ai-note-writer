@@ -15,18 +15,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GeneratedArticle } from "@/types/generated-article";
-import { Copy, RefreshCw } from "lucide-react";
-import { useState } from "react";
+import { Copy, Loader2, RefreshCw } from "lucide-react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { startGeneratedArticle } from "../action";
 import GenerateButton from "./_components/generate-button";
 
 export const runtime = "edge";
 
+// APIレスポンスの型を定義 (GETの場合)
+interface UserProfileResponse {
+  articleGenerationsRemaining: number;
+  plan: string;
+}
+
+// APIレスポンスの型を定義 (POSTの場合)
+interface GenerateArticleResponse {
+  generatedArticle: GeneratedArticle;
+  userProfile: UserProfileResponse;
+}
+
 export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
-  const [clickCount, setClickCount] = useState(0);
   const [formData, setFormData] = useState({
     theme: "",
     targetAudience: "",
@@ -38,6 +48,52 @@ export default function Home() {
     useState<GeneratedArticle | null>(null);
 
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
+
+  // articleGenerationsRemaining と userPlan の state を定義
+  // 初期値は undefined または null にして、取得前であることを示す
+  const [articleGenerationsRemaining, setArticleGenerationsRemaining] =
+    useState<number | undefined>(undefined);
+  const [userPlan, setUserPlan] = useState<string | undefined>(undefined);
+  const [isLoadingUser, setIsLoadingUser] = useState(true); // ユーザー情報取得中のローディング状態
+
+  // ページロード時にユーザー情報を取得する useEffect
+  useEffect(() => {
+    async function fetchUserProfile() {
+      try {
+        const response = await fetch("/api/generate-article", {
+          // GETリクエスト
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          // エラーハンドリング
+          // response.json() の結果を { error: string } 型にキャスト
+          const errorData = (await response.json()) as { error: string };
+          console.error("Failed to fetch user profile:", errorData.error);
+          setStatusMessage(
+            `ユーザー情報の取得に失敗しました: ${errorData.error}`
+          );
+          toast.error("ユーザー情報の取得に失敗しました。");
+          // エラー時もローディングを終了
+        } else {
+          const userProfile = (await response.json()) as UserProfileResponse;
+          setArticleGenerationsRemaining(
+            userProfile.articleGenerationsRemaining
+          );
+          setUserPlan(userProfile.plan);
+          setStatusMessage("ユーザー情報を取得しました。");
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+        setStatusMessage("ユーザー情報の取得中にエラーが発生しました。");
+        toast.error("ユーザー情報の取得中にエラーが発生しました。");
+      } finally {
+        setIsLoadingUser(false); // 取得完了またはエラーでローディングを終了
+      }
+    }
+
+    fetchUserProfile();
+  }, []); // 空の依存配列で、コンポーネントマウント時に一度だけ実行
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,26 +119,60 @@ export default function Home() {
       toast.error("トーン＆マナーを入力してください。");
       return;
     }
-
-    setClickCount((prevCount) => prevCount + 1);
+    // 生成回数が不明または0以下の場合は生成しない
+    if (
+      articleGenerationsRemaining === undefined ||
+      articleGenerationsRemaining <= 0
+    ) {
+      setStatusMessage("記事の生成回数が残っていません。");
+      toast.warning("記事の生成回数が残っていません。");
+      return;
+    }
 
     setIsGenerating(true);
     setStatusMessage("記事を生成中です...");
 
-    // Simulate API call to AI service
+    // API呼び出し (POSTリクエスト)
     try {
-      const data = await startGeneratedArticle({
-        theme: formData.theme,
-        targetAudience: formData.targetAudience,
-        toneAndManner: formData.toneAndManner,
-        sectionCount: Number(formData.sectionCount),
+      const response = await fetch("/api/generate-article", {
+        // POSTリクエスト
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          theme: formData.theme,
+          targetAudience: formData.targetAudience,
+          toneAndManner: formData.toneAndManner,
+          sectionCount: Number(formData.sectionCount),
+        }),
       });
 
-      setGeneratedArticle(data as GeneratedArticle);
-      setStatusMessage("記事が正常に生成されました！");
-      toast.success("記事が正常に生成されました！");
-    } catch (error: unknown) {
-      console.error(error);
+      if (!response.ok) {
+        // response.json() の結果を { error: string } 型にキャスト
+        const errorData = (await response.json()) as { error: string };
+        console.error("Failed to generate article:", errorData.error);
+        setStatusMessage(`記事生成に失敗しました: ${errorData.error}`);
+        toast.error("記事の生成中にエラーが発生しました。");
+        // エラー時もローディングを終了
+      } else {
+        const responseData = (await response.json()) as GenerateArticleResponse;
+
+        // APIレスポンスから記事データとユーザープロフィールデータを抽出
+        const { generatedArticle, userProfile } = responseData;
+
+        // 生成された記事データを state にセット
+        setGeneratedArticle(generatedArticle);
+
+        // ユーザープロフィールデータを state にセット (更新後の値)
+        setArticleGenerationsRemaining(userProfile.articleGenerationsRemaining);
+        setUserPlan(userProfile.plan);
+
+        setStatusMessage("記事が正常に生成されました！");
+        toast.success("記事が正常に生成されました！");
+      }
+    } catch (error) {
+      console.error("Error generating article:", error);
       setStatusMessage("エラーが発生しました。もう一度お試しください。");
       toast.error("記事の生成中にエラーが発生しました。");
     } finally {
@@ -124,12 +214,21 @@ ${generatedArticle.hashtags.join(" ")}
     });
     setGeneratedArticle(null);
     setStatusMessage("");
-    setClickCount(0);
+    // リセット時にはユーザー情報はそのままの状態にする
   };
 
   const handleResetClick = () => {
     setIsResetDialogOpen(true);
   };
+
+  // // ユーザー情報取得中または残数が取得できていない場合はボタンを無効化
+  // const isGenerateButtonDisabled =
+  //   isGenerating ||
+  //   isLoadingUser ||
+  //   articleGenerationsRemaining === undefined ||
+  //   articleGenerationsRemaining <= 0;
+  // // 最大生成回数を計算（GenerateButtonと同じロジック）
+  // const maxGenerations = userPlan === "paid" ? 50 : 5; // GenerateButtonのロジックと合わせる
 
   return (
     <main className="min-h-screen bg-white">
@@ -208,11 +307,21 @@ ${generatedArticle.hashtags.join(" ")}
                 2. AIで記事を自動生成
               </h2>
 
-              <GenerateButton
-                onGenerateClick={generateArticle}
-                isGenerating={isGenerating}
-                clickCount={clickCount}
-              />
+              {/* GenerateButton コンポーネントに state を props として渡す */}
+              {/* ユーザー情報取得中はローディング表示 */}
+              {isLoadingUser ? (
+                <div className="flex items-center justify-center py-6">
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  ユーザー情報取得中...
+                </div>
+              ) : (
+                <GenerateButton
+                  onGenerateClick={generateArticle}
+                  isGenerating={isGenerating}
+                  articleGenerationsRemaining={articleGenerationsRemaining ?? 0} // undefined の場合は0を渡す
+                  userPlan={userPlan ?? "free"} // undefined の場合は'free'を渡す
+                />
+              )}
             </div>
 
             {/* Status Display Area */}
