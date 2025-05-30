@@ -4,8 +4,8 @@ import { getUserProfile } from "@/drizzle/query";
 import Link from "next/link";
 
 export default async function PaymentButton() {
-	const session = await auth();
-	// サインインしていない時
+  const session = await auth();
+  // サインインしていない時
   if (!session?.user?.id) {
     return (
       <Button
@@ -13,7 +13,7 @@ export default async function PaymentButton() {
         type="submit"
         className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
       >
-        <Link href="/generators">サインイン</Link>
+        <Link href="/generators">プランを購入する</Link>
       </Button>
     );
   }
@@ -40,7 +40,7 @@ export default async function PaymentButton() {
           role="link"
           className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6"
         >
-          プランを選ぶ
+          プランを購入する
         </Button>
       </section>
     </form>
