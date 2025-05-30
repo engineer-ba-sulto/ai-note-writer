@@ -9,7 +9,7 @@ export default function Footer() {
           AIの力で、あなたの創作活動をサポートします
         </p>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4">
         <Link href="/term-of-service" className="text-gray-400">
           利用規約
         </Link>
