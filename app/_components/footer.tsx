@@ -16,6 +16,9 @@ export default function Footer() {
         <Link href="/privacy-policy" className="text-gray-400">
           プライバシーポリシー
         </Link>
+        <Link href="/legal" className="text-gray-400">
+          特定商法取引法に基づく表記
+        </Link>
       </div>
     </footer>
   );
