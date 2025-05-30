@@ -18,9 +18,9 @@ export default async function PaymentButton() {
     );
   }
   // サインインしている時
-  const { stripeCustomerId } = await getUserProfile(session.user.id);
-  // 購入済みの時
-  if (stripeCustomerId) {
+  const { stripeSubscriptionId } = await getUserProfile(session.user.id);
+  // サブスクリプション購入済みの時
+  if (stripeSubscriptionId) {
     return (
       <Button
         asChild
