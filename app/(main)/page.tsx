@@ -7,11 +7,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { faqText } from "@/contants/faq-text";
-import SigninButton from "./_components/signin-button";
+import CTAButton from "./_components/cta-button";
+import PaymentButton from "./_components/payment-button";
 
 export const runtime = "edge";
 
-export default function TopPage() {
+export default async function TopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ canceled: boolean }>;
+}) {
+  const { canceled } = await searchParams;
+  if (canceled) {
+    console.log(
+      "Order canceled -- continue to shop around and checkout when you’re ready."
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {/* Hero Section */}
@@ -27,13 +38,15 @@ export default function TopPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
               <br />
-              <span className="text-black font-semibold">1日仕事の記事作成が1分で終わります。</span>
+              <span className="text-black font-semibold">
+                1日仕事の記事作成が1分で終わります。
+              </span>
               <br />
               <span className="text-blue-600 font-semibold">1分記事作成AI</span>
               で創作の新時代を体験しよう。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <SigninButton>無料で始める</SigninButton>
+              <CTAButton />
               <Button
                 variant="outline"
                 className="text-gray-600 border-gray-300 hover:bg-gray-50 text-xl px-10 py-6 transform hover:scale-105 transition-all duration-200"
@@ -164,7 +177,7 @@ export default function TopPage() {
               シンプルで分かりやすい料金プラン
             </h2>
             <p className="text-xl text-gray-600">
-              あなたのニーズに合わせて選べる3つのプラン
+              あなたのニーズに合わせて選べる2つのプラン
             </p>
           </div>
 
@@ -173,7 +186,7 @@ export default function TopPage() {
             <Card className="relative border-2 border-gray-200 shadow-lg">
               <CardContent className="p-8 text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  フリー
+                  フリープラン
                 </h3>
                 <div className="text-4xl font-bold text-gray-900 mb-4">
                   ¥0<span className="text-lg text-gray-600">/月</span>
@@ -188,7 +201,7 @@ export default function TopPage() {
                     3セクション構成
                   </li>
                 </ul>
-                <SigninButton className="w-full">無料で始める</SigninButton>
+                <CTAButton className="w-full" />
               </CardContent>
             </Card>
 
@@ -200,7 +213,9 @@ export default function TopPage() {
                 </span>
               </div>
               <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">プロ</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  プロプラン
+                </h3>
                 <div className="text-4xl font-bold text-blue-600 mb-4">
                   <div>
                     <span>¥490</span>
@@ -220,14 +235,8 @@ export default function TopPage() {
                     <span className="text-green-500 mr-2">✓</span>
                     3〜5セクション構成
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span>
-                    優先メールサポート
-                  </li>
                 </ul>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-xl text-white px-10 py-6">
-                  プロプランを選ぶ
-                </Button>
+                <PaymentButton />
               </CardContent>
             </Card>
           </div>
@@ -271,7 +280,7 @@ export default function TopPage() {
             アカウント作成は無料。すぐに高品質な記事作成を体験できます。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <SigninButton>無料で始める</SigninButton>
+            <CTAButton />
           </div>
         </div>
       </section>

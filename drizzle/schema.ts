@@ -84,3 +84,25 @@ export const authenticators = sqliteTable(
     }),
   })
 );
+
+export const userProfiles = sqliteTable("userProfile", {
+  userId: text("userId")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+  plan: text("plan", { enum: ["free", "paid"] })
+    .notNull()
+    .default("free"),
+  articleGenerationsRemaining: integer("articleGenerationsRemaining")
+    .notNull()
+    .default(5),
+  stripeCustomerId: text("stripeCustomerId").unique(),
+  stripeSubscriptionId: text("stripeSubscriptionId").unique(),
+  stripePriceId: text("stripePriceId"),
+  stripeCurrentPeriodEnd: integer("stripeCurrentPeriodEnd", {
+    mode: "timestamp_ms",
+  }),
+});
+
+// 型の定義
+export type UserProfile = typeof userProfiles.$inferSelect;
+export type NewUserProfile = typeof userProfiles.$inferInsert;

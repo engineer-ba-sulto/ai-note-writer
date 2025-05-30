@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 p-8">
         <div className="prose prose-blue dark:prose-invert max-w-none">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-            最終更新日: 2025年5月26日
+            最終更新日: 2025年6月1日
           </p>
 
           <section className="mb-8">
@@ -83,8 +83,6 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-bold mb-4">6. アクセス解析ツール</h2>
             <p>
               当サイトでは、Googleが提供するアクセス解析ツール「Googleアナリティクス」を使用しています。Googleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。
-            </p>
-            <p className="mt-2">
               Googleアナリティクスの詳細については、
               <a
                 href="https://marketingplatform.google.com/about/analytics/terms/jp/"
@@ -102,6 +100,19 @@ export default function PrivacyPolicyPage() {
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Googleプライバシーポリシー
+              </a>
+              をご確認ください。
+            </p>
+            <p className="mt-2">
+              当サイトでは、Cloudflareが提供するアクセス解析ツール「Cloudflareアナリティクス」を使用しています。
+              Cloudflareの詳細については、
+              <a
+                href="https://www.cloudflare.com/privacypolicy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                Cloudflareプライバシーポリシー
               </a>
               をご確認ください。
             </p>
@@ -214,10 +225,10 @@ export default function PrivacyPolicyPage() {
             <p>
               本プライバシーポリシーに関するお問い合わせは、
               <Link
-                href="/contact"
+                href="mailto:info@engineer-ba-sulto.com"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
-                お問い合わせフォーム
+                info@engineer-ba-sulto.com
               </Link>
               よりお願いいたします。
             </p>

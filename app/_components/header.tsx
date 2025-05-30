@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import UserAvatar from "../(main)/_components/auth/user-avatar";
+import NavLinks from "./ui/nav-links";
 
 export default async function Header() {
   const session = await auth();
@@ -12,12 +12,7 @@ export default async function Header() {
           <Link href="/">1分記事作成AI</Link>
         </h1>
         <div className="flex items-center gap-4">
-          <Button asChild variant="ghost" className="text-lg text-gray-600">
-            <Link href="#price">価格</Link>
-          </Button>
-          <Button asChild variant="ghost" className="text-lg text-gray-600">
-            <Link href="#faq">よくある質問</Link>
-          </Button>
+          <NavLinks />
         </div>
         <div>
           {session ? (

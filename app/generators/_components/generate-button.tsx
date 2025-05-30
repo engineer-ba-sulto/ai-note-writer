@@ -1,24 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
 
 export default function GenerateButton({
-  onClick,
   isGenerating,
+  articleGenerationsRemaining,
+  userPlan,
+  onGenerateClick,
 }: {
-  onClick: () => void;
   isGenerating: boolean;
+  articleGenerationsRemaining: number;
+  userPlan: string;
+  onGenerateClick: () => Promise<void>;
 }) {
-  const [clickCount, setClickCount] = useState(0);
-  const handleClick = () => {
-    setClickCount(clickCount + 1);
-    onClick();
-  };
+  const maxGenerations = userPlan === "paid" ? 50 : 5;
+
   return (
     <>
       <Button
-        onClick={handleClick}
-        disabled={isGenerating || clickCount >= 5}
+        onClick={onGenerateClick}
+        disabled={isGenerating || articleGenerationsRemaining <= 0}
         className="w-full py-6 text-lg font-medium"
       >
         {isGenerating ? (
@@ -31,7 +31,7 @@ export default function GenerateButton({
         )}
       </Button>
       <p className="text-end text-gray-500 dark:text-gray-400">
-        生成回数: {clickCount}/5
+        生成回数：残{articleGenerationsRemaining}/{maxGenerations}回
       </p>
     </>
   );

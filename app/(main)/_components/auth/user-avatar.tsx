@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function UserAvatar() {
   const session = await auth();
@@ -31,6 +32,11 @@ export default async function UserAvatar() {
           <DropdownMenuSeparator />
           <DropdownMenuItem>{session.user.name}</DropdownMenuItem>
           <DropdownMenuItem>{session.user.email}</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="https://billing.stripe.com/p/login/test_6oEdUCaCd3WP8X6cMM">
+              Manage Subscription
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <form

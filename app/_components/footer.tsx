@@ -9,12 +9,15 @@ export default function Footer() {
           AIの力で、あなたの創作活動をサポートします
         </p>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col gap-4">
         <Link href="/term-of-service" className="text-gray-400">
           利用規約
         </Link>
         <Link href="/privacy-policy" className="text-gray-400">
           プライバシーポリシー
+        </Link>
+        <Link href="/legal" className="text-gray-400">
+          特定商法取引法に基づく表記
         </Link>
       </div>
     </footer>
