@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 p-8">
         <div className="prose prose-blue dark:prose-invert max-w-none">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-            最終更新日: 2025年5月26日
+            最終更新日: 2025年6月1日
           </p>
 
           <section className="mb-8">
@@ -214,10 +214,10 @@ export default function PrivacyPolicyPage() {
             <p>
               本プライバシーポリシーに関するお問い合わせは、
               <Link
-                href="/contact"
+                href="mailto:info@engineer-ba-sulto.com"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
-                お問い合わせフォーム
+                info@engineer-ba-sulto.com
               </Link>
               よりお願いいたします。
             </p>

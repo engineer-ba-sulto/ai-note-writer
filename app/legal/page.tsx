@@ -17,7 +17,7 @@ export default function LegalPage() {
       <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 p-8">
         <div className="prose prose-blue dark:prose-invert max-w-none">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-            最終更新日: 2025年5月30日
+            最終更新日: 2025年6月1日
           </p>
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">販売事業者</h2>
