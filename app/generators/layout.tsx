@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import Header from "../_components/header";
 
 export default async function GeneratorsLayout({
   children,
@@ -10,6 +11,10 @@ export default async function GeneratorsLayout({
   if (!session) {
     redirect("/signin");
   }
-
-  return <div className="container mt-4 mx-auto">{children}</div>;
+  return (
+    <main>
+      <Header />
+      <div className="container mt-4 mx-auto">{children}</div>
+    </main>
+  );
 }
