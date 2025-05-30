@@ -83,8 +83,6 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-xl font-bold mb-4">6. アクセス解析ツール</h2>
             <p>
               当サイトでは、Googleが提供するアクセス解析ツール「Googleアナリティクス」を使用しています。Googleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。
-            </p>
-            <p className="mt-2">
               Googleアナリティクスの詳細については、
               <a
                 href="https://marketingplatform.google.com/about/analytics/terms/jp/"
@@ -102,6 +100,19 @@ export default function PrivacyPolicyPage() {
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Googleプライバシーポリシー
+              </a>
+              をご確認ください。
+            </p>
+            <p className="mt-2">
+              当サイトでは、Cloudflareが提供するアクセス解析ツール「Cloudflareアナリティクス」を使用しています。
+              Cloudflareの詳細については、
+              <a
+                href="https://www.cloudflare.com/privacypolicy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                Cloudflareプライバシーポリシー
               </a>
               をご確認ください。
             </p>
