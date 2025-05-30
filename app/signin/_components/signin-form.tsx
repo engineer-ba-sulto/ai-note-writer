@@ -47,8 +47,15 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary">
-        続行をクリックすると、<a href="#">利用規約</a>と
-        <a href="#">プライバシーポリシー</a>に同意したことになります。
+        続行をクリックすると、
+        <a href="/term-of-service" target="_blank" rel="noopener noreferrer">
+          利用規約
+        </a>
+        と
+        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+          プライバシーポリシー
+        </a>
+        に同意したことになります。
       </div>
     </div>
   );
