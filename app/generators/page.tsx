@@ -417,10 +417,10 @@ ${generatedArticle.hashtags.join(" ")}`}
             </Tabs>
 
             {/* Action Buttons */}
-            <div className="mt-6 flex gap-4">
+            <div className="mt-6 sm:flex gap-4">
               <Button
                 variant="outline"
-                className="flex-1 cursor-pointer"
+                className="flex-1 cursor-pointer w-full"
                 onClick={copyToClipboard}
                 disabled={!generatedArticle}
               >
@@ -430,7 +430,7 @@ ${generatedArticle.hashtags.join(" ")}`}
 
               <Button
                 variant="outline"
-                className="flex-1 cursor-pointer"
+                className="flex-1 cursor-pointer w-full"
                 onClick={handleResetClick}
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
