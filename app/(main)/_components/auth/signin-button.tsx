@@ -14,6 +14,7 @@ export default function SignIn({
     <Button
       onClick={() => signIn(oauth, { redirectTo: "/generators" })}
       variant="outline"
+      className="cursor-pointer"
     >
       {children}
     </Button>

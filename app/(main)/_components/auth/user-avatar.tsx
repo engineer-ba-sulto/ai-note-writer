@@ -45,7 +45,7 @@ export default async function UserAvatar() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button type="submit" className="w-full text-left">
+              <button type="submit" className="w-full text-left cursor-pointer">
                 Sign Out
               </button>
             </form>
