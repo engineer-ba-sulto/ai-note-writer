@@ -338,10 +338,10 @@ ${generatedArticle.hashtags.join(" ")}
           <div className="bg-white p-6 rounded-lg border border-gray-200 flex flex-col">
             <Tabs defaultValue="preview" className="w-full">
               <TabsList className="mb-4">
-                <TabsTrigger value="preview" className="flex-1">
+                <TabsTrigger value="preview" className="flex-1 cursor-pointer">
                   プレビュー
                 </TabsTrigger>
-                <TabsTrigger value="markdown" className="flex-1">
+                <TabsTrigger value="markdown" className="flex-1 cursor-pointer">
                   Markdown
                 </TabsTrigger>
               </TabsList>
@@ -420,7 +420,7 @@ ${generatedArticle.hashtags.join(" ")}`}
             <div className="mt-6 flex gap-4">
               <Button
                 variant="outline"
-                className="flex-1"
+                className="flex-1 cursor-pointer"
                 onClick={copyToClipboard}
                 disabled={!generatedArticle}
               >
@@ -430,7 +430,7 @@ ${generatedArticle.hashtags.join(" ")}`}
 
               <Button
                 variant="outline"
-                className="flex-1"
+                className="flex-1 cursor-pointer"
                 onClick={handleResetClick}
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
@@ -451,8 +451,13 @@ ${generatedArticle.hashtags.join(" ")}`}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>キャンセル</AlertDialogCancel>
-            <AlertDialogAction onClick={resetForm}>
+            <AlertDialogCancel className="cursor-pointer">
+              キャンセル
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={resetForm}
+              className="cursor-pointer"
+            >
               リセットする
             </AlertDialogAction>
           </AlertDialogFooter>
