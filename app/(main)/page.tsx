@@ -35,15 +35,17 @@ export default async function TopPage({
               <br />
               <span className="text-4xl md:text-6xl">あなたの想いを文章に</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              テーマとターゲットを入力するだけで、プロ品質の記事が瞬時に完成。
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-5xl mx-auto leading-relaxed">
+              記事のテーマ、ターゲット読者、トーン＆マナーを入力
+              <br />
+              プロ品質の記事が瞬時に完成
               <br />
               <span className="text-black font-semibold">
-                1日仕事の記事作成が1分で終わります。
+                面倒なプロンプトを入力することなく、1日仕事の記事作成が1分で終わります
               </span>
               <br />
               <span className="text-blue-600 font-semibold">1分記事作成AI</span>
-              で創作の新時代を体験しよう。
+              で創作の新時代を体験しよう！！
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <CTAButton />
@@ -111,7 +113,7 @@ export default async function TopPage({
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   AIが生成した記事をワンクリックでコピー。
-                  すぐにnoteに投稿して読者と繋がりましょう。
+                  すぐに投稿して読者と繋がりましょう。
                 </p>
               </CardContent>
             </Card>
