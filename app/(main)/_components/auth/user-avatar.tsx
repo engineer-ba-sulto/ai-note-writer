@@ -28,13 +28,13 @@ export default async function UserAvatar() {
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>アカウント</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>{session.user.name}</DropdownMenuItem>
           <DropdownMenuItem>{session.user.email}</DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="https://billing.stripe.com/p/login/test_6oEdUCaCd3WP8X6cMM">
-              Manage Subscription
+              サブスクリプション管理
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -45,8 +45,8 @@ export default async function UserAvatar() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button type="submit" className="w-full text-left">
-                Sign Out
+              <button type="submit" className="w-full text-left cursor-pointer">
+                サインアウト
               </button>
             </form>
           </DropdownMenuItem>

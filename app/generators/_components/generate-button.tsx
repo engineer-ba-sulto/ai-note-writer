@@ -19,7 +19,7 @@ export default function GenerateButton({
       <Button
         onClick={onGenerateClick}
         disabled={isGenerating || articleGenerationsRemaining <= 0}
-        className="w-full py-6 text-lg font-medium"
+        className="w-full py-6 text-lg font-medium cursor-pointer"
       >
         {isGenerating ? (
           <>
