@@ -1,3 +1,6 @@
+import Footer from "../_components/footer";
+import Header from "../_components/header";
+
 export default async function GeneratorsLayout({
   children,
 }: {
@@ -5,9 +8,9 @@ export default async function GeneratorsLayout({
 }) {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
