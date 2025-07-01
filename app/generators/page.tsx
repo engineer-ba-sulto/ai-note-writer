@@ -252,7 +252,7 @@ ${generatedArticle.hashtags.join(" ")}
                     placeholder="AIを使ったアイデア発想術"
                     value={formData.theme}
                     onChange={handleInputChange}
-                    className="mt-1"
+                    className="mt-1 bg-white"
                   />
                 </div>
 
@@ -264,7 +264,7 @@ ${generatedArticle.hashtags.join(" ")}
                     placeholder="プログラミング初心者の学生"
                     value={formData.targetAudience}
                     onChange={handleInputChange}
-                    className="mt-1"
+                    className="mt-1 bg-white"
                   />
                 </div>
 
@@ -276,7 +276,7 @@ ${generatedArticle.hashtags.join(" ")}
                     placeholder="親しみやすく、専門用語は控えめに"
                     value={formData.toneAndManner}
                     onChange={handleInputChange}
-                    className="mt-1"
+                    className="mt-1 bg-white"
                   />
                 </div>
 
@@ -341,9 +341,9 @@ ${generatedArticle.hashtags.join(" ")}
                 <TabsTrigger value="preview" className="flex-1 cursor-pointer">
                   プレビュー
                 </TabsTrigger>
-                <TabsTrigger value="markdown" className="flex-1 cursor-pointer">
+                {/* <TabsTrigger value="markdown" className="flex-1 cursor-pointer">
                   Markdown
-                </TabsTrigger>
+                </TabsTrigger> */}
               </TabsList>
 
               <TabsContent value="preview" className="flex-1 overflow-auto">
@@ -425,7 +425,8 @@ ${generatedArticle.hashtags.join(" ")}`}
                 disabled={!generatedArticle}
               >
                 <Copy className="mr-2 h-4 w-4" />
-                記事全体をクリップボードにコピー (Markdown)
+                記事全体をクリップボードにコピー
+                {/* <span>(Markdown)</span> */}
               </Button>
 
               <Button
@@ -454,10 +455,7 @@ ${generatedArticle.hashtags.join(" ")}`}
             <AlertDialogCancel className="cursor-pointer">
               キャンセル
             </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={resetForm}
-              className="cursor-pointer"
-            >
+            <AlertDialogAction onClick={resetForm} className="cursor-pointer">
               リセットする
             </AlertDialogAction>
           </AlertDialogFooter>
