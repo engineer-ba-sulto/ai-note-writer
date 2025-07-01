@@ -42,7 +42,7 @@ export default async function TopPage({
             {/* YouTube動画埋め込み（主役） */}
             <div className="aspect-video rounded-lg overflow-hidden shadow-2xl mx-auto mb-8">
               <iframe
-                src="https://www.youtube.com/embed/EefFe3tqoDw"
+                src="https://www.youtube.com/embed/OBN1lmiM0ic"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
