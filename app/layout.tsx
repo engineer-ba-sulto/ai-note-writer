@@ -1,5 +1,6 @@
 import GoogleAdsense from "@/components/google-adsense";
 import { Toaster } from "@/components/ui/sonner";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Toaster />
       </body>
       <GoogleAdsense pId={process.env.PID!} />
+      <GoogleAnalytics gaId={process.env.GA_ID!} />
     </html>
   );
 }
